@@ -11,8 +11,8 @@ import (
 
 func BlocksHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-	// case http.MethodGet:
-	// 	GetBlocksHandler(w, r)
+	case http.MethodGet:
+		GetBlocksHandler(w, r)
 	case http.MethodPost:
 		AddBlocksHandler(w, r)
 	default:
@@ -33,4 +33,11 @@ func AddBlocksHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// ブロックをmemory.CHAIN へインサートする
 	memory.CHAIN = append(memory.CHAIN, block)
+}
+
+func GetBlocksHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
+	if err := json.NewEncoder(w).Encode(memory.CHAIN); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
 }

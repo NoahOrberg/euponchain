@@ -9,5 +9,5 @@ type Block struct {
 }
 
 type Data struct {
-	Body string
+	Body string `json:"body"`
 }

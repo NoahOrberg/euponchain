@@ -24,6 +24,13 @@ func CalcHash(data model.Block) []byte {
 }
 
 func getLastInsertedBlock() (model.Block, error) {
+	if len(memory.CHAIN)-1 < 0 {
+		res := model.Block{
+			Index: 0,
+			Hash:  []byte("Nil"),
+		}
+		return res, nil
+	}
 	return memory.CHAIN[len(memory.CHAIN)-1], nil
 }
 
