@@ -2,12 +2,12 @@ package model
 
 type Block struct {
 	Index        int64
-	previousHash []byte
+	PreviousHash []byte
 	Timestamp    int64
-	data         Data
+	Data         Data
 	Hash         []byte
 }
 
 type Data struct {
-	body string
+	Body string
 }
