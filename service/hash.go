@@ -3,6 +3,7 @@ package service
 import (
 	"crypto/sha256"
 	"encoding/binary"
+	"errors"
 	"time"
 
 	"github.com/NoahOrberg/euponchain/memory"
@@ -25,11 +26,7 @@ func CalcHash(data model.Block) []byte {
 
 func getLastInsertedBlock() (model.Block, error) {
 	if len(memory.CHAIN)-1 < 0 {
-		res := model.Block{
-			Index: 0,
-			Hash:  []byte("Nil"),
-		}
-		return res, nil
+		return model.Block{}, errors.New("No such Block!")
 	}
 	return memory.CHAIN[len(memory.CHAIN)-1], nil
 }
