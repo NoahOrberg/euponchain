@@ -3,10 +3,7 @@ package service
 import (
 	"crypto/sha256"
 	"encoding/binary"
-	"errors"
-	"time"
 
-	"github.com/NoahOrberg/euponchain/memory"
 	"github.com/NoahOrberg/euponchain/model"
 )
 
@@ -22,26 +19,4 @@ func CalcHash(data model.Block) []byte {
 	hdata = append(hdata, data.PreviousHash...)
 	res := sha256.Sum256(hdata)
 	return res[:]
-}
-
-func getLastInsertedBlock() (model.Block, error) {
-	if len(memory.CHAIN)-1 < 0 {
-		return model.Block{}, errors.New("No such Block!")
-	}
-	return memory.CHAIN[len(memory.CHAIN)-1], nil
-}
-
-func CreateBlock(data model.Data) (model.Block, error) {
-	previousBlock, err := getLastInsertedBlock()
-	if err != nil {
-		return model.Block{}, nil
-	}
-	newBlock := model.Block{
-		Index:        previousBlock.Index + 1,
-		PreviousHash: previousBlock.Hash,
-		Timestamp:    time.Now().Unix(),
-		Data:         data,
-	}
-	newBlock.Hash = CalcHash(newBlock)
-	return newBlock, nil
 }

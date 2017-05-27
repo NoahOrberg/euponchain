@@ -15,7 +15,9 @@ func main() {
 		fmt.Fprintf(w, "Hello:)")
 	})
 	r.HandleFunc("/blocks", controller.BlocksHandler)
-	err := http.ListenAndServe(":8282", r)
+	port := ":8282"
+	fmt.Print("http://localhost", port)
+	err := http.ListenAndServe(port, r)
 	if err != nil {
 		log.Fatal("ListenAndServe", err)
 	}
