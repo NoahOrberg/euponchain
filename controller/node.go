@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/NoahOrberg/euponchain/memory"
@@ -28,12 +29,16 @@ func AddBlocksNodesHandler(w http.ResponseWriter, r *http.Request) {
 	// 不当ならレスポンスで不当な旨伝える
 	pBlock, err := service.GetLastInsertedBlock()
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 	}
+	log.Printf("%v\n", service.IsValidNewBlock(block, pBlock))
 	if service.IsValidNewBlock(block, pBlock) {
+		log.Println(err)
 		w.WriteHeader(http.StatusBadRequest)
 	} else {
 		// ブロックをmemory.CHAIN へインサートする
 		memory.CHAIN = append(memory.CHAIN, block)
+		log.Println("Inserted ")
 	}
 }

@@ -59,7 +59,7 @@ func ReplaceChain(newChain []model.Block) {
 
 func SendNewBlock(newBlock model.Block) error {
 	for _, node := range memory.Nodes {
-		nodeUrl := "http://" + node.ToString() + "/blocks/nodes/"
+		nodeUrl := "http://" + node.ToString() + "/blocks/nodes"
 		jsonNewBlock, err := json.Marshal(newBlock)
 		if err != nil {
 			return err
@@ -78,6 +78,7 @@ func SendNewBlock(newBlock model.Block) error {
 		if err != nil {
 			return err
 		}
+		log.Println(res.Status + "\n")
 		if res.StatusCode != 200 {
 			return errors.New("cannot OK")
 		}
