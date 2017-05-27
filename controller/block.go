@@ -32,7 +32,9 @@ func AddBlocksHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 	// ネットワークへ送信
-	// **
+	if err := service.SendNewBlock(block); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+	}
 	// ブロックをmemory.CHAIN へインサートする
 	memory.CHAIN = append(memory.CHAIN, block)
 }

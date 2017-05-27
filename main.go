@@ -15,6 +15,7 @@ func main() {
 		fmt.Fprintf(w, "Hello:)")
 	})
 	r.HandleFunc("/blocks", controller.BlocksHandler)
+	r.HandleFunc("/blocks/nodes", controller.NodesHandler)
 	port := ":8282"
 	fmt.Print("http://localhost", port)
 	err := http.ListenAndServe(port, r)

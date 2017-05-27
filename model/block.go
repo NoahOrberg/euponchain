@@ -1,11 +1,11 @@
 package model
 
 type Block struct {
-	Index        int64
-	PreviousHash []byte
-	Timestamp    int64
-	Data         Data
-	Hash         []byte
+	Index        int64  `json:"index"`
+	PreviousHash []byte `json:"previousHash"`
+	Timestamp    int64  `json:"timestamp"`
+	Data         Data   `json:"data"`
+	Hash         []byte `json:"hash"`
 }
 
 type Data struct {
